@@ -1,0 +1,302 @@
+{
+  "name": "Employee Onboarding Automation with Welcome and Notification Emails",
+  "nodes": [
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "id-1",
+              "name": "hrEmail",
+              "value": "hr@company.com",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "45bf81c7-7241-4438-afe5-4e3e7ffd1e84",
+      "name": "Workflow Configuration",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        480,
+        496
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "options": {}
+      },
+      "id": "cd2ae4f1-1397-44c1-88b6-5aeb9f5d5db2",
+      "name": "Prepare Employee Data",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        704,
+        496
+      ]
+    },
+    {
+      "parameters": {
+        "sendTo": "aravindans583224205003@nprcolleges.org",
+        "subject": "Welcome to the Company",
+        "message": "=<h2>Welcome to the Company!</h2>\n\n<p>Dear {{ $json.body.employeeName }},</p>\n\n<p>We are thrilled to have you join our team as a <strong>{{ $json.body.jobRole }}</strong> in the <strong>{{ $json.body.department }}</strong> department.</p>\n\n<p>Your onboarding process has been initiated, and you will receive further information from your manager and HR team shortly.</p>\n\n<p>We look forward to working with you!</p>\n\n<p>Best regards,<br>The HR Team</p>",
+        "options": {}
+      },
+      "id": "92e7386b-271f-4ecd-b92c-c4bf209b66e7",
+      "name": "Send Welcome Email to Employee",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1120,
+        320
+      ],
+      "webhookId": "60e6aae8-0067-438e-8c98-a2f85fd6c7ea",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "eHubqhTqmredbAsU",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "=aravindansingaram56@gmail.com",
+        "subject": "=New Employee Onboarding - {{ $json.employeeName }}",
+        "message": "=<h2 style=\"color:#2c3e50;\">New Employee Onboarding Notification</h2>\n\n<p>Hello Team,</p>\n\n<p>A new employee has been added to the system. Employee details are given below:</p>\n\n<!-- Employee Name -->\n<div style=\"border:1px solid #ccc; padding:12px; margin-bottom:10px; font-family:Arial, sans-serif;\">\n  <strong>Employee Name</strong><br>\n  {{ $json.employeeName }}\n</div>\n\n<!-- Email -->\n<div style=\"border:1px solid #ccc; padding:12px; margin-bottom:10px; font-family:Arial, sans-serif;\">\n  <strong>Email</strong><br>\n  {{ $json.email }}\n</div>\n\n<!-- Phone Number -->\n<div style=\"border:1px solid #ccc; padding:12px; margin-bottom:10px; font-family:Arial, sans-serif;\">\n  <strong>Phone Number</strong><br>\n  {{ $json.phoneNumber }}\n</div>\n\n<!-- Department -->\n<div style=\"border:1px solid #ccc; padding:12px; margin-bottom:10px; font-family:Arial, sans-serif;\">\n  <strong>Department</strong><br>\n  {{ $json.department }}\n</div>\n\n<!-- Job Role -->\n<div style=\"border:1px solid #ccc; padding:12px; margin-bottom:10px; font-family:Arial, sans-serif;\">\n  <strong>Job Role</strong><br>\n  {{ $json.jobRole }}\n</div>\n\n<!-- Manager Email -->\n<div style=\"border:1px solid #ccc; padding:12px; margin-bottom:20px; font-family:Arial, sans-serif;\">\n  <strong>Manager Email</strong><br>\n  {{ $json.managerEmail }}\n</div>\n\n<p>Please proceed with the onboarding process.</p>\n\n<p>Best regards,<br>\n<strong>Automated Onboarding System</strong></p>\n",
+        "options": {}
+      },
+      "id": "470cde37-39f2-4632-8187-90ff5f0d1b48",
+      "name": "Send Notification to HR",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        960,
+        496
+      ],
+      "webhookId": "c5f81058-2945-4725-aabc-8fc1c7e97bee",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "eHubqhTqmredbAsU",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "vijayseenivashb583224104119@nprcolleges.org",
+        "subject": "=New Team Member Onboarding - {{ $json.employeeName }}",
+        "message": "=<h2>New Team Member Onboarding</h2>\n\n<p>Dear Manager,</p>\n\n<p>A new team member has been assigned to your department:</p>\n\n<table border=\"1\" cellpadding=\"8\" cellspacing=\"0\" style=\"border-collapse: collapse;\">\n  <tr>\n    <th>Employee Name</th>\n    <td>{{ $json.employeeName }}</td>\n  </tr>\n  <tr>\n    <th>Email</th>\n    <td>{{ $json.email }}</td>\n  </tr>\n  <tr>\n    <th>Phone Number</th>\n    <td>{{ $json.phoneNumber }}</td>\n  </tr>\n  <tr>\n    <th>Department</th>\n    <td>{{ $json.department }}</td>\n  </tr>\n  <tr>\n    <th>Job Role</th>\n    <td>{{ $json.jobRole }}</td>\n  </tr>\n</table>\n\n<p>Please reach out to welcome them and coordinate their onboarding activities.</p>\n\n<p>Best regards,<br>HR Team</p>",
+        "options": {}
+      },
+      "id": "666d638f-5cb7-4fea-9461-6b0394c532aa",
+      "name": "Send Notification to Manager",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        976,
+        672
+      ],
+      "webhookId": "22c8d323-0493-4db3-bc67-add2d7a38358",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "eHubqhTqmredbAsU",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "10P6AAHVzyLhMXK-GKvNWSCHgmJKaiQykkTIuRy9n7Ng",
+          "mode": "list",
+          "cachedResultName": "Employee Details",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/10P6AAHVzyLhMXK-GKvNWSCHgmJKaiQykkTIuRy9n7Ng/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1306574746,
+          "mode": "list",
+          "cachedResultName": "Form Responses 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/10P6AAHVzyLhMXK-GKvNWSCHgmJKaiQykkTIuRy9n7Ng/edit#gid=1306574746"
+        },
+        "options": {}
+      },
+      "id": "7f781943-6a83-47bb-a5df-c4135d001ea5",
+      "name": "New Employee Form Submission",
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        80,
+        496
+      ],
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "rSbOmHy1SwJeGaAV",
+          "name": "Google Sheets Trigger account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1ab4be0e-7db5-49e8-8a02-4b88ced40a8d",
+              "name": "Full name",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "f8601f48-b3aa-464e-a930-a0c67d31a1fb",
+              "name": "Phone Number",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "09e47655-e447-4bc6-b909-263a35a36aed",
+              "name": "",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "13677212-a2c3-41c2-81e7-9bbca24dec99",
+              "name": "Department",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "e66faa5b-99ae-40c8-b93c-82fea528b69b",
+              "name": "Email Address",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        272,
+        496
+      ],
+      "id": "a04729a2-961e-462c-8142-c849195ad6dd",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        960,
+        320
+      ],
+      "id": "e04655f0-11db-4d06-8ebe-8c30c44cb486",
+      "name": "Wait",
+      "webhookId": "cc03c75d-93ea-41cd-b645-598e1276ebcf"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Workflow Configuration": {
+      "main": [
+        [
+          {
+            "node": "Prepare Employee Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Employee Data": {
+      "main": [
+        [
+          {
+            "node": "Send Notification to HR",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Send Notification to Manager",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "New Employee Form Submission": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Workflow Configuration",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Notification to HR": {
+      "main": [
+        []
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Send Welcome Email to Employee",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Welcome Email to Employee": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "0a1c59db-8bc9-4a67-8cd7-3a0c481aa8a9",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "d6ec917d6d1ada589961947f9e43e0f402f58dd4a79932a18b9ea0712f0aa050"
+  },
+  "id": "ncOYwtwPCWey1C69GJ5vU",
+  "tags": []
+}
